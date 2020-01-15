@@ -25,7 +25,8 @@ class YearCollectionContainer: UIView{
             layout!.minimumInteritemSpacing = 0
             layout.scrollDirection = .horizontal
             layout!.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets.init(top: 0, left: (self.bounds.width / 2) - 60, bottom: 0, right: (self.bounds.width / 2) - 60)
+//            layout.sectionInset = UIEdgeInsets.init(top: 0, left: (self.bounds.width / 2) - 60, bottom: 0, right: (self.bounds.width / 2) - 60)
+            layout.sectionInset = UIEdgeInsets.init(top: 0, left: self.bounds.width - (2 * self.bounds.width / 3),bottom: 0, right: (self.bounds.width / 2) - 60)
             yearCollectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout!)
             yearCollectionView.backgroundColor = .white
             yearCollectionView.showsHorizontalScrollIndicator = false

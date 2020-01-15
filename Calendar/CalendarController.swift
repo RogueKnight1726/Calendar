@@ -38,7 +38,9 @@ class CalendarController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
         initViews()
     }
     
@@ -92,17 +94,6 @@ class CalendarController: UIViewController {
         daysCollectionView.dataSource = self
         
         changeMonthAndYear(month: 12, year: 2019)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         

@@ -12,13 +12,13 @@ class DayOffsetHelper{
     static let instance = DayOffsetHelper()
     let schoolTimeZone = TimeZone.init(identifier: "Pacific/Kiritimati")
     
-//    func getFirstDayOfMonthOffset(date: Date) -> Int{
-//        let calendar = Calendar.current
-//        var dateComponents: DateComponents? = calendar.dateComponents([.day,.month,.year,.weekday], from: date)
-//        dateComponents?.day = 2
-//        let firstDateOfMonth: Date? = calendar.date(from: dateComponents!)
-//        return getFirstDayOfMonth(firstDateOfMonth!) ?? 0
-//    }
+    func getFirstDayOfMonthOffset(date: Date) -> Int{
+        let calendar = Calendar.current
+        var dateComponents: DateComponents? = calendar.dateComponents([.day,.month,.year,.weekday], from: date)
+        dateComponents?.day = 2
+        let firstDateOfMonth: Date? = calendar.date(from: dateComponents!)
+        return getFirstDayOfMonth(firstDateOfMonth!)
+    }
     
     func getFirstDayOfMonth(_ date: Date) -> Int {
         let myCalendar = Calendar(identifier: .gregorian)

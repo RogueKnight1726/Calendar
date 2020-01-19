@@ -14,7 +14,12 @@ class YearCollectionContainer: UIView{
     var layout: UICollectionViewFlowLayout!
     var yearCollectionView: UICollectionView!
     var yearArray: [Int] = Array(1990...2030)
-    var delegate: MonthSelectionDelegate?
+    weak var delegate: DaySelectionProtocol?
+    
+    var highlightedDate: HighlightedDate!{
+        didSet{
+        }
+    }
     
     
     override func layoutSubviews() {
@@ -41,10 +46,11 @@ class YearCollectionContainer: UIView{
             yearCollectionView.delegate = self
             yearCollectionView.dataSource = self
             yearCollectionView.clipsToBounds = false
-//            yearCollectionView.isPagingEnabled = true
-            
         }
+//        yearCollectionView.scrollToItem(at: IndexPath.init(item: yearIndex, section: 0), at: .centeredHorizontally, animated: true)
     }
+    
+    
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -72,11 +78,11 @@ extension YearCollectionContainer: UICollectionViewDelegate,UICollectionViewData
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        delegate?.selectedYear(year: yearArray[indexPath.row])
+        highlightedDate.year.value = yearArray[indexPath.row]
+        delegate?.selectedDateFromCalendar()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset.x)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {

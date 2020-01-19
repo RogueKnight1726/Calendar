@@ -18,6 +18,10 @@
 		580FED8B23940F90002BAE62 /* MonthCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580FED8A23940F90002BAE62 /* MonthCollectionCell.swift */; };
 		580FED8E2394109C002BAE62 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580FED8D2394109C002BAE62 /* Month.swift */; };
 		584F5BE0239CDBDE005D64E3 /* YearCollectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584F5BDF239CDBDE005D64E3 /* YearCollectionContainer.swift */; };
+		58CEA50123D434A900D16E1E /* HighlightedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CEA50023D434A900D16E1E /* HighlightedDate.swift */; };
+		58CEA50323D4353600D16E1E /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CEA50223D4353600D16E1E /* Day.swift */; };
+		58CEA50523D4355800D16E1E /* Year.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CEA50423D4355800D16E1E /* Year.swift */; };
+		58CEA50723D48DD100D16E1E /* SelectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CEA50623D48DD100D16E1E /* SelectionType.swift */; };
 		58E264AF239BD92B004E9A95 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E264AE239BD92B004E9A95 /* DayCell.swift */; };
 		58E264B1239BE8AF004E9A95 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E264B0239BE8AF004E9A95 /* Extensions.swift */; };
 		58E264B3239C0C6D004E9A95 /* DayOffsetHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E264B2239C0C6D004E9A95 /* DayOffsetHelper.swift */; };
@@ -61,6 +65,10 @@
 		580FED8A23940F90002BAE62 /* MonthCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthCollectionCell.swift; sourceTree = "<group>"; };
 		580FED8D2394109C002BAE62 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		584F5BDF239CDBDE005D64E3 /* YearCollectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearCollectionContainer.swift; sourceTree = "<group>"; };
+		58CEA50023D434A900D16E1E /* HighlightedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightedDate.swift; sourceTree = "<group>"; };
+		58CEA50223D4353600D16E1E /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		58CEA50423D4355800D16E1E /* Year.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Year.swift; sourceTree = "<group>"; };
+		58CEA50623D48DD100D16E1E /* SelectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionType.swift; sourceTree = "<group>"; };
 		58E264AE239BD92B004E9A95 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		58E264B0239BE8AF004E9A95 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		58E264B2239C0C6D004E9A95 /* DayOffsetHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOffsetHelper.swift; sourceTree = "<group>"; };
@@ -167,6 +175,10 @@
 			isa = PBXGroup;
 			children = (
 				580FED8D2394109C002BAE62 /* Month.swift */,
+				58CEA50223D4353600D16E1E /* Day.swift */,
+				58CEA50423D4355800D16E1E /* Year.swift */,
+				58CEA50023D434A900D16E1E /* HighlightedDate.swift */,
+				58CEA50623D48DD100D16E1E /* SelectionType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,11 +314,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58CEA50323D4353600D16E1E /* Day.swift in Sources */,
 				584F5BE0239CDBDE005D64E3 /* YearCollectionContainer.swift in Sources */,
+				58CEA50123D434A900D16E1E /* HighlightedDate.swift in Sources */,
 				58E264B5239C1965004E9A95 /* WeekdaysCollectionContainer.swift in Sources */,
 				580FED8923940F77002BAE62 /* BaseView.swift in Sources */,
 				58E264AF239BD92B004E9A95 /* DayCell.swift in Sources */,
+				58CEA50723D48DD100D16E1E /* SelectionType.swift in Sources */,
 				580FED5C2392CBF7002BAE62 /* CalendarController.swift in Sources */,
+				58CEA50523D4355800D16E1E /* Year.swift in Sources */,
 				580FED8B23940F90002BAE62 /* MonthCollectionCell.swift in Sources */,
 				58E264B9239C2AB7004E9A95 /* MonthsCollectionContainer.swift in Sources */,
 				580FED8E2394109C002BAE62 /* Month.swift in Sources */,

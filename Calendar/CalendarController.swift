@@ -10,25 +10,28 @@ import UIKit
 
 class CalendarController: UIViewController {
 
-    var guide                   : UILayoutGuide!
-    var yearLabel               = UILabel()
+    var guide                           : UILayoutGuide!
+    var yearLabel                       = UILabel()
     
-    var daysCollectionView      : UICollectionView!
-    var daysCollectionLayout    : UICollectionViewFlowLayout!
-    var weekdaysContainer       : WeekDysCollectionContainer!
-    
-    var monthsContainer         : MonthsCollectionContainer!
-    
-    var yearContainer           : YearCollectionContainer!
-    var selectedYear            = Calendar.current.dateComponents([.year], from: Date()).year
-    var selectedMonthIndex      = 12
-    
-    
-    
+    var daysCollectionView              : UICollectionView!
+    var daysCollectionLayout            : UICollectionViewFlowLayout!
+    var weekdaysContainer               : WeekDysCollectionContainer!
+    var monthsContainer                 : MonthsCollectionContainer!
+    var yearContainer                   : YearCollectionContainer!
+    var selectedYear                    = Calendar.current.dateComponents([.year], from: Date()).year
+    var selectedMonthIndex              = 12
     var selectedCalendar                : Calendar!
     var selectedCalendarDaysArray       : [Int]!{
         didSet{
             daysCollectionView.reloadData()
+        }
+    }
+    
+    var selectionTYpe: SelectionType = .Single
+    
+    var highlightedDate: HighlightedDate! {
+        didSet{
+            
         }
     }
     
@@ -37,18 +40,86 @@ class CalendarController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
         }
+        setInitialValue()
         initViews()
     }
+    
+    
+    func setInitialValue(){
+        let calendar = Calendar.selectedCalendar
+        let dateComponents: DateComponents! = calendar.dateComponents([.day,.month,.year], from: Date())
+        print(Date().getMonthNameFrom(index: dateComponents.month ?? 14))
+        let day = Day.init(with: dateComponents.day ?? 1)
+        let year = Year.init(with: dateComponents.year ?? 2020)
+        let month = Month.init(with: Date().getMonthNameFrom(index: dateComponents.month ?? 11))
+        let highlightedDate = HighlightedDate.init(day: day, month: month, year: year)
+        self.highlightedDate = highlightedDate
+    }
+    
+    
+    func changeMonthAndYear(){
+        let dateComponents = DateComponents(year: highlightedDate.year.value, month: highlightedDate.month?.getMonthIndex())
+        let calendar = Calendar.current
+        let experimentDate = calendar.date(from: dateComponents)!
+        selectedCalendarDaysArray = []
+        selectedCalendar = Calendar.current
+        let range = selectedCalendar.range(of: .day, in: .month, for: experimentDate)
+        selectedCalendarDaysArray = Array(range!)
+        
+        for _ in 0..<DayOffsetHelper.instance.getFirstDayOfMonth(experimentDate) - 1{
+            selectedCalendarDaysArray.insert(0, at: 0)
+        }
+        daysCollectionView.reloadData()
+        
+    }
+
+}
+
+
+
+extension CalendarController: UICollectionViewDelegate,UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return selectedCalendarDaysArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SomeIdentifier", for: indexPath) as! DayCell
+        cell.intValue = selectedCalendarDaysArray[indexPath.row]
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch selectionTYpe{
+        case .Single:
+            break
+        case .Multiple:
+            break
+        }
+    }
+    
+    
+}
+
+extension CalendarController: DaySelectionProtocol{
+    func selectedDateFromCalendar() {
+        print("Day selected is : \(highlightedDate.day!) - \(highlightedDate.month!) - \(highlightedDate.year!)")
+        changeMonthAndYear()
+    }
+}
+
+
+
+extension CalendarController{
     
     
     func initViews(){
         guide = view.safeAreaLayoutGuide
         
         yearContainer = YearCollectionContainer()
+        yearContainer.highlightedDate = self.highlightedDate
         view.addSubview(yearContainer)
         yearContainer.translatesAutoresizingMaskIntoConstraints = false
         [yearContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
@@ -59,6 +130,7 @@ class CalendarController: UIViewController {
         yearContainer.clipsToBounds = false
         
         monthsContainer = MonthsCollectionContainer()
+        monthsContainer.highlightedDate = highlightedDate
         view.addSubview(monthsContainer)
         monthsContainer.translatesAutoresizingMaskIntoConstraints = false
         [monthsContainer.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
@@ -92,64 +164,6 @@ class CalendarController: UIViewController {
         daysCollectionView.register(DayCell.self, forCellWithReuseIdentifier: "SomeIdentifier")
         daysCollectionView.delegate = self
         daysCollectionView.dataSource = self
-        
-        changeMonthAndYear(month: 12, year: 2019)
-        
-        
-        
-        
-        
-    }
-    
-    func changeMonthAndYear(month: Int,year: Int){
-        let dateComponents = DateComponents(year: year, month: month)
-        let calendar = Calendar.current
-        let experimentDate = calendar.date(from: dateComponents)!
-
-
-        selectedCalendarDaysArray = []
-        daysCollectionView.reloadData()
-        selectedCalendar = Calendar.current
-        let range = selectedCalendar.range(of: .day, in: .month, for: experimentDate)
-        selectedCalendarDaysArray = Array(range!)
-        
-        for _ in 0..<DayOffsetHelper.instance.getFirstDayOfMonth(experimentDate) - 1{
-            selectedCalendarDaysArray.insert(0, at: 0)
-        }
-        daysCollectionView.reloadData()
-    }
-
-
-}
-
-
-
-extension CalendarController: UICollectionViewDelegate,UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectedCalendarDaysArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SomeIdentifier", for: indexPath) as! DayCell
-        cell.intValue = selectedCalendarDaysArray[indexPath.row]
-        return cell
-    }
-    
-    
-}
-
-
-
-extension CalendarController: MonthSelectionDelegate{
-    func selectedYear(year: Int) {
-        selectedYear = year
-        changeMonthAndYear(month: selectedMonthIndex + 1, year: selectedYear!)
-    }
-    
-    func selectedMonthAt(index: Int) {
-        if let _ = selectedYear{
-            selectedMonthIndex = index
-            changeMonthAndYear(month: index + 1, year: selectedYear!)
-        }
+        changeMonthAndYear()
     }
 }

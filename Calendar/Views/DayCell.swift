@@ -14,6 +14,8 @@ class DayCell: UICollectionViewCell{
     var selectionBaseView: BaseView!
     var label: UILabel!
     
+    
+    
     var intValue: Int?{
         didSet{
             guard let _ = intValue else { return }
@@ -31,12 +33,13 @@ class DayCell: UICollectionViewCell{
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         if !subviews.contains(label){
             selectionBaseView = BaseView.init(with: .white, circular: true, shadow: false, borderColor: .clear, borderThickness: 0)
             self.addSubview(selectionBaseView)
             selectionBaseView.translatesAutoresizingMaskIntoConstraints = false
-            [selectionBaseView.widthAnchor.constraint(equalToConstant: self.bounds.width),
-            selectionBaseView.heightAnchor.constraint(equalToConstant: self.bounds.width),
+            [selectionBaseView.widthAnchor.constraint(equalToConstant: self.bounds.width - 10),
+            selectionBaseView.heightAnchor.constraint(equalToConstant: self.bounds.width - 10),
             selectionBaseView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0),
             selectionBaseView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0)].forEach({$0.isActive = true})
             self.addSubview(label)

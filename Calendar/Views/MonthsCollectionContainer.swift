@@ -14,7 +14,12 @@ class MonthsCollectionContainer: UIView{
     var layout: UICollectionViewFlowLayout!
     var monthCollectionVieW: UICollectionView!
     var monthsArray = Calendar.current.monthSymbols
-    var delegate: MonthSelectionDelegate?
+    weak var delegate: DaySelectionProtocol?
+    
+    var highlightedDate: HighlightedDate!{
+        didSet{
+        }
+    }
     
     
     override func layoutSubviews() {
@@ -73,7 +78,8 @@ extension MonthsCollectionContainer: UICollectionViewDelegate,UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        delegate?.selectedMonthAt(index: indexPath.row)
+        highlightedDate.month.name = monthsArray[indexPath.row]
+        delegate?.selectedDateFromCalendar()
     }
 }
 
